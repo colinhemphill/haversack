@@ -10,15 +10,17 @@ Easy save state management stored in the browser's LocalStorage. Works just like
 
 ### Setup
 
-    // ES6
-    import Haversack from 'haversack'
+```javascript
+// ES6
+import Haversack from 'haversack'
 
-    // CommonJS
-    // Haversack = require('haversack')
+// CommonJS
+// Haversack = require('haversack')
 
-    const haversack = new Haversack({
-      prefix: 'yourProject'
-    })
+const haversack = new Haversack({
+  prefix: 'yourProject'
+})
+```
 
 #### Options
 
@@ -29,17 +31,21 @@ Easy save state management stored in the browser's LocalStorage. Works just like
 
 Haversack is modeled after state management in React. To put items in the bag, run the `setState()` command with an object containing the items you want to update.
 
-    haversack.setState({
-      name: 'Jan Darkmagic',
-      currentHp: 34,
-      items: ['Driftglobe', 'Potion of Healing', 'Immovable Rod']
-    })
+```javascript
+haversack.setState({
+  name: 'Jan Darkmagic',
+  currentHp: 34,
+  items: ['Driftglobe', 'Potion of Healing', 'Immovable Rod']
+})
+```
 
 Later updates will only affect the parameters that you explicitly set.
 
-    haversack.setState({
-      currentHp: 28
-    })
+```javascript
+haversack.setState({
+  currentHp: 28
+})
+```
 
 The above will update `currentHp` but will not overwrite the state of the other parameters.
 
@@ -47,29 +53,35 @@ The above will update `currentHp` but will not overwrite the state of the other 
 
 To pull an item out of the bag, access it on `haversack.state`.
 
-    console.log(haversack.state.currentHp)
-    // 28
+```javascript
+console.log(haversack.state.currentHp)
+// 28
 
-    console.log(haversack.state.name)
-    // 'Jan Darkmagic'
+console.log(haversack.state.name)
+// 'Jan Darkmagic'
+```
 
 ### Clearing State
 
 To empty out the bag, call `haversack.clear()`.
 
-    console.log(haversack.state.currentHp)
-    // 28
+```javascript
+console.log(haversack.state.currentHp)
+// 28
 
-    haversack.clear()
-    console.log(haversack.state.currentHp)
-    // undefined
+haversack.clear()
+console.log(haversack.state.currentHp)
+// undefined
+```
 
 ### Timestamps
 
 If the `includeTimestamps` option is enabled, all calls to `update()` will leave a timestamp that you can access.
 
-    console.log(haversack.lastUpdated)
-    // Wed Aug 29 2018 16:29:42 GMT-0500 (Central Daylight Time)
+```javascript
+console.log(haversack.lastUpdated)
+// Wed Aug 29 2018 16:29:42 GMT-0500 (Central Daylight Time)
+```
 
 ## Known Issues
 
