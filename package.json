@@ -1,0 +1,26 @@
+{
+  "name": "haversack",
+  "title": "Haversack",
+  "description": "Easy save states stored in the browser LocalStorage.",
+  "author": {
+    "name": "Colin Hemphill",
+    "url": "https://github.com/colinhemphill/"
+  },
+  "homepage": "https://github.com/colinhemphill/haversack",
+  "version": "0.1.0",
+  "main": "src/haversack.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colinhemphill/haversack.git"
+  },
+  "keywords": [
+    "haversack",
+    "save",
+    "state",
+    "localStorage"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/colinhemphill/haversack/issues"
+  }
+}

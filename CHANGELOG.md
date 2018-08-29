@@ -1,0 +1,1 @@
+- 0.1.0: Initial project publish. Simple functionality includes `setState()`, `clear()`, state retrieval, and `lastUpdated` timestamp.
