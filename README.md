@@ -1,3 +1,5 @@
+[![NPM version][npm-version-image]][npm-url] [![NPM downloads][npm-downloads-image]][npm-url] [![MIT License][license-image]][license-url]
+
 # Haversack
 
 Easy save state management stored in the browser's LocalStorage. Works just like states in React.
@@ -86,3 +88,13 @@ console.log(haversack.lastUpdated)
 ## Known Issues
 
 Placing the haversack inside an extradimensional space created by a bag of holding, portable hole, or similar item instantly destroys both items and opens a gate to the Astral Plane. The gate originates where the one item was placed inside the other. Any creature within 10 feet of the gate is sucked through it and deposited in a random location on the Astral Plane. The gate then closes. The gate is one-way only and can't be reopened.
+
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
+
+[license-url]: https://github.com/colinhemphill/git-gut/blob/master/LICENSE
+
+[npm-downloads-image]: http://img.shields.io/npm/dm/git-gut.svg?style=flat-square
+
+[npm-url]: https://npmjs.org/package/git-gut
+
+[npm-version-image]: http://img.shields.io/npm/v/git-gut.svg?style=flat-square
