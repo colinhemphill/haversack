@@ -72,6 +72,7 @@ console.log(haversack.state.currentHp)
 // 28
 
 haversack.clear()
+
 console.log(haversack.state.currentHp)
 // undefined
 ```
