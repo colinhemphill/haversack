@@ -91,10 +91,10 @@ Placing the haversack inside an extradimensional space created by a bag of holdi
 
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 
-[license-url]: https://github.com/colinhemphill/git-gut/blob/master/LICENSE
+[license-url]: https://github.com/colinhemphill/haversack/blob/master/LICENSE
 
-[npm-downloads-image]: http://img.shields.io/npm/dm/git-gut.svg?style=flat-square
+[npm-downloads-image]: http://img.shields.io/npm/dm/haversack.svg?style=flat-square
 
-[npm-url]: https://npmjs.org/package/git-gut
+[npm-url]: https://npmjs.org/package/haversack
 
-[npm-version-image]: http://img.shields.io/npm/v/git-gut.svg?style=flat-square
+[npm-version-image]: http://img.shields.io/npm/v/haversack.svg?style=flat-square
