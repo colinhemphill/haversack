@@ -8,9 +8,7 @@ Easy save state management stored in the browser's LocalStorage. Works just like
 
     npm install --save haversack
 
-## How To Use
-
-### Setup
+## Setup
 
 ```javascript
 // ES6
@@ -24,10 +22,12 @@ const haversack = new Haversack({
 })
 ```
 
-#### Options
+### Options
 
 -   `prefix`: String, optional, defaults to `'haversack'`
 -   `includeTimestamps`: Boolean, optional, defaults to `true`
+
+## How To Use
 
 ### Updating State
 
