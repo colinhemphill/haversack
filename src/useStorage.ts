@@ -1,5 +1,6 @@
 import { parse, stringify } from 'flatted';
 import { useState } from 'react';
+import { isServerSide } from './utils';
 
 const useStorage = <T>(
   storageType: StorageType,
