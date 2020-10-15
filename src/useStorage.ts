@@ -7,11 +7,13 @@ const useStorage = <T>(
   key: StorageKey,
   initialValue?: T,
 ): {
-  value: null | T;
-  setValue: null | ((value: T) => void);
+  value: undefined | T;
+  setValue: (value: T) => void;
 } => {
   if (isServerSide()) {
-    return { value: null, setValue: null };
+    const setValueError = () =>
+      console.error(`Cannot set ${storageType} value of ${key} on the server.`);
+    return { value: initialValue, setValue: setValueError };
   }
 
   const [storedValue, setStoredValue] = useState<T>(() => {
