@@ -1,16 +1,19 @@
 {
   "name": "haversack",
   "title": "Haversack",
-  "description": "Easy save states stored in the browser LocalStorage or SessionStorage.",
-  "author": {
-    "name": "Colin Hemphill",
-    "url": "https://github.com/colinhemphill/"
-  },
+  "description": "Easy save states through browser LocalStorage or SessionStorage.",
+  "author": "Colin Hemphill <colin@colinhemphill.com>",
   "homepage": "https://github.com/colinhemphill/haversack",
   "license": "MIT",
   "version": "1.0.0",
-  "main": "dist/haversack.cjs.js",
-  "module": "dist/haversack.esm.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/colinhemphill/haversack.git"
@@ -28,9 +31,10 @@
     "hooks"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "clean": "rm -rf node_modules && rm -rf dist",
-    "dev": "rollup -c -w",
+    "build": "tsc",
+    "build:types": "tsc --emitDeclarationOnly",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
     "prepare": "npm run build"
   },
   "husky": {
@@ -39,14 +43,15 @@
     }
   },
   "devDependencies": {
+    "@types/react": "16.9.52",
     "husky": "4.3.0",
     "prettier": "2.1.2",
     "pretty-quick": "3.1.0",
-    "rollup": "2.30.0",
-    "rollup-plugin-terser": "7.0.2",
-    "rollup-plugin-typescript": "1.0.1",
+    "react": "16.14.0",
     "tslib": "2.0.3",
     "typescript": "4.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "flatted": "3.1.0"
+  }
 }
