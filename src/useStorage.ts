@@ -1,41 +1,43 @@
-import { parse, stringify } from 'flatted';
 import { useState } from 'react';
-import { isServerSide } from './utils';
+import {
+  isServerSide,
+  noop,
+  safeGetStorageValue,
+  safeSetStorageValue,
+} from './utils';
 
 const useStorage = <T>(
   storageType: StorageType,
   key: StorageKey,
   initialValue?: T,
 ): {
-  value: undefined | T;
+  resetValue: () => void;
   setValue: (value: T) => void;
+  value: undefined | T;
 } => {
   if (isServerSide()) {
-    const setValueError = () =>
-      console.error(`Cannot set ${storageType} value of ${key} on the server.`);
-    return { value: initialValue, setValue: setValueError };
+    return {
+      resetValue: noop,
+      setValue: noop,
+      value: initialValue,
+    };
   }
 
-  const [storedValue, setStoredValue] = useState<T>(() => {
-    try {
-      const item = window[storageType].getItem(key);
-      return item ? parse(item) : initialValue;
-    } catch (error) {
-      console.error(error);
-      return initialValue;
-    }
+  const [storedValue, setStoredValue] = useState<T | undefined>(() => {
+    const item = safeGetStorageValue<T>(storageType, key);
+    return item ? item : initialValue;
   });
 
-  const setValue = (value: T) => {
-    try {
-      setStoredValue(value);
-      window[storageType].setItem(key, stringify(value));
-    } catch (error) {
-      console.log(error);
-    }
+  const resetValue = () => {
+    window[storageType].removeItem(key);
   };
 
-  return { value: storedValue, setValue };
+  const setValue = (value: T) => {
+    setStoredValue(value);
+    safeSetStorageValue<T>(storageType, key, value);
+  };
+
+  return { value: storedValue, resetValue, setValue };
 };
 
 export const useLocalStorage = <T = StoredData>(

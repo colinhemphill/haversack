@@ -2,4 +2,4 @@ type StorageType = 'localStorage' | 'sessionStorage';
 
 type StorageKey = string;
 
-type StoredData = null | string | Record<string, unknown>;
+type StoredData = string | Record<string, unknown>;
