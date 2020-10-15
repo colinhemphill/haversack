@@ -6,9 +6,13 @@ const useStorage = <T>(
   key: StorageKey,
   initialValue?: T,
 ): {
-  value: T;
-  setValue: (value: T) => void;
+  value: null | T;
+  setValue: null | ((value: T) => void);
 } => {
+  if (isServerSide()) {
+    return { value: null, setValue: null };
+  }
+
   const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window[storageType].getItem(key);
