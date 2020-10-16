@@ -13,7 +13,8 @@ const useStorage = <T>(
 ): {
   resetValue: () => void;
   setValue: (value: T) => void;
-  value: undefined | T;
+  timestamp?: Date;
+  value?: T;
 } => {
   if (isServerSide()) {
     return {
@@ -23,21 +24,32 @@ const useStorage = <T>(
     };
   }
 
-  const [storedValue, setStoredValue] = useState<T | undefined>(() => {
+  const [storedValue, setStoredValue] = useState<StorageStructure<T>>(() => {
     const item = safeGetStorageValue<T>(storageType, key);
-    return item ? item : initialValue;
+    return item ? item : { data: initialValue };
   });
+
+  const mergeValue = () => {};
 
   const resetValue = () => {
     window[storageType].removeItem(key);
   };
 
   const setValue = (value: T) => {
-    setStoredValue(value);
-    safeSetStorageValue<T>(storageType, key, value);
+    const ts = new Date();
+    setStoredValue({
+      data: value,
+      ts,
+    });
+    safeSetStorageValue<T>(storageType, key, value, ts);
   };
 
-  return { value: storedValue, resetValue, setValue };
+  return {
+    resetValue,
+    setValue,
+    timestamp: storedValue?.ts,
+    value: storedValue?.data,
+  };
 };
 
 export const useLocalStorage = <T = StoredData>(
