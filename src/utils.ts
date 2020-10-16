@@ -1,5 +1,8 @@
 export const isServerSide = (): boolean => typeof window === 'undefined';
 
+export const isObject = (value: any): value is Record<string, any> =>
+  (value as Record<string, any>) !== undefined;
+
 export const noop = (): void => undefined;
 
 export const safeGetStorageValue = <T>(
