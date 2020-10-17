@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { registerStorageEventHandler } from './storageEvent';
 import {
   isObject,
   isServerSide,
@@ -61,6 +62,10 @@ const useStorage = <T>(
     });
     safeSetStorageValue<T>(storageType, key, value, ts);
   };
+
+  registerStorageEventHandler<T>(key, (newValue) => {
+    setStoredValue(newValue);
+  });
 
   return {
     mergeState,

@@ -8,6 +8,7 @@ Easy save state management using browser `localStorage` or `sessionStorage` and 
 - Offers React hooks for both `localStorage` and `sessionStorage` 🎣
 - Set simple key/value pairs or an immutable JSON structure
 - JSON state merging
+- Event handling to sync state between browser tabs
 - SSR friendly, Next.js compatible
 - Small and performant (no dependencies, 732B Minified + gzipped) ⚡️
 
@@ -160,6 +161,10 @@ function MyComponent() {
   );
 }
 ```
+
+## Storage event sync
+
+Each time you implement a Haversack hook, an `onstorage` event handler is registered. Any instance of your component on alternate browser tabs will be notified that `localStorage` has changed, and update the `value` accordingly.
 
 ## Notes on Server-Side Rendering Compatibility
 
