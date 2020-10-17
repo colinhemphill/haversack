@@ -29,7 +29,7 @@ const useStorage = <T>(
 
   const [storedValue, setStoredValue] = useState<StorageStructure<T>>(() => {
     const item = safeGetStorageValue<T>(storageType, key);
-    return item ? item : { data: initialValue };
+    return item?.data ? item : { data: initialValue };
   });
 
   const mergeState = (state: Record<string, any>) => {
@@ -49,6 +49,7 @@ const useStorage = <T>(
   };
 
   const resetValue = () => {
+    setStoredValue({});
     window[storageType].removeItem(key);
   };
 

@@ -16,7 +16,8 @@
   },
   "ignorePatterns": [
     ".dist/*",
-    "node_modules/*"
+    "node_modules/*",
+    "jest.config.js"
   ],
   "rules": {
     "sort-imports": "off",
