@@ -12,16 +12,16 @@ const useStorage = <T>(
   key: StorageKey,
   initialValue?: T,
 ): {
+  mergeState: (state: Record<string, any>) => void;
   resetValue: () => void;
-  setState: (state: Record<string, any>) => void;
   setValue: (value: T) => void;
   timestamp?: Date;
   value?: T;
 } => {
   if (isServerSide()) {
     return {
+      mergeState: noop,
       resetValue: noop,
-      setState: noop,
       setValue: noop,
       value: initialValue,
     };
@@ -32,11 +32,7 @@ const useStorage = <T>(
     return item ? item : { data: initialValue };
   });
 
-  const resetValue = () => {
-    window[storageType].removeItem(key);
-  };
-
-  const setState = (state: Record<string, any>) => {
+  const mergeState = (state: Record<string, any>) => {
     const ts = new Date();
     const currentState = isObject(storedValue.data) ? storedValue.data : {};
     const updatedState = Object.assign(currentState, state);
@@ -52,6 +48,10 @@ const useStorage = <T>(
     );
   };
 
+  const resetValue = () => {
+    window[storageType].removeItem(key);
+  };
+
   const setValue = (value: T) => {
     const ts = new Date();
     setStoredValue({
@@ -62,8 +62,8 @@ const useStorage = <T>(
   };
 
   return {
+    mergeState,
     resetValue,
-    setState,
     setValue,
     timestamp: storedValue?.ts,
     value: storedValue?.data,
