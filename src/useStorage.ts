@@ -32,14 +32,14 @@ const useStorage = <T>(
     return item ? item : { data: initialValue };
   });
 
+  const resetValue = () => {
+    window[storageType].removeItem(key);
+  };
+
   const setState = (state: Record<string, any>) => {
-    if (!isObject(storedValue)) {
-      return console.error(
-        'setState can only be called when the stored value is an object.',
-      );
-    }
     const ts = new Date();
-    const updatedState = Object.assign(storedValue?.data || {}, state);
+    const currentState = isObject(storedValue.data) ? storedValue.data : {};
+    const updatedState = Object.assign(currentState, state);
     setStoredValue({
       data: updatedState as T,
       ts,
@@ -50,10 +50,6 @@ const useStorage = <T>(
       updatedState,
       ts,
     );
-  };
-
-  const resetValue = () => {
-    window[storageType].removeItem(key);
   };
 
   const setValue = (value: T) => {

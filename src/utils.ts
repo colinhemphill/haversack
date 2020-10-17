@@ -1,7 +1,8 @@
 export const isServerSide = (): boolean => typeof window === 'undefined';
 
-export const isObject = (value: any): value is Record<string, any> =>
-  (value as Record<string, any>) !== undefined;
+export const isObject = (obj: any): boolean => {
+  return obj && obj.constructor === Object;
+};
 
 export const noop = (): void => undefined;
 
