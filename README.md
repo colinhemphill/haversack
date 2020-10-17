@@ -9,7 +9,7 @@ Easy save state management using browser `localStorage` or `sessionStorage` and 
 - Set simple key/value pairs or an immutable JSON structure
 - JSON state merging
 - SSR friendly, Next.js compatible
-- Small and performant ⚡️
+- Small and performant (no dependencies, 732B Minified + gzipped) ⚡️
 
 `sessionStorage` is an underrepresented feature as most libraries don't support using either API interchangeably. Storing data to the session is more secure, and is perfectly suitable for many use-cases. Learn about the difference [on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API)!
 
