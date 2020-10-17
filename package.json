@@ -1,26 +1,78 @@
 {
   "name": "haversack",
   "title": "Haversack",
-  "description": "Easy save states stored in the browser LocalStorage.",
-  "author": {
-    "name": "Colin Hemphill",
-    "url": "https://github.com/colinhemphill/"
-  },
+  "description": "Easy save states through browser LocalStorage or SessionStorage.",
+  "author": "Colin Hemphill <colin@colinhemphill.com>",
   "homepage": "https://github.com/colinhemphill/haversack",
-  "version": "0.1.0",
-  "main": "src/haversack.js",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/colinhemphill/haversack.git"
+  },
+  "bugs": {
+    "url": "https://github.com/colinhemphill/haversack/issues"
   },
   "keywords": [
     "haversack",
     "save",
     "state",
-    "localStorage"
+    "localStorage",
+    "sessionStorage",
+    "react",
+    "hooks"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/colinhemphill/haversack/issues"
+  "scripts": {
+    "build": "tsc",
+    "build:types": "tsc --emitDeclarationOnly",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch",
+    "format": "prettier --write 'src/**/*.{json,ts,tsx}'",
+    "lint": "eslint ./src --ext js --ext ts --ext tsx --fix",
+    "prepare": "npm run build",
+    "test": "jest"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.@(js|ts|tsx)": [
+      "npm run lint",
+      "npm run format"
+    ]
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "3.4.2",
+    "@types/jest": "26.0.14",
+    "@types/react": "16.9.53",
+    "@typescript-eslint/eslint-plugin": "4.4.1",
+    "@typescript-eslint/parser": "4.4.1",
+    "eslint": "7.11.0",
+    "eslint-config-prettier": "6.13.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.3.0",
+    "jest": "26.5.3",
+    "jest-localstorage-mock": "2.4.3",
+    "lint-staged": "10.4.2",
+    "mockdate": "3.0.2",
+    "prettier": "2.1.2",
+    "react": "16.14.0",
+    "react-test-renderer": "16.14.0",
+    "ts-jest": "26.4.1",
+    "typescript": "4.0.3"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": ">=16.8.0"
   }
 }
