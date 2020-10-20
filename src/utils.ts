@@ -42,6 +42,6 @@ export const safeSetStorageValue = <T>(
     });
     window[storageType].setItem(key, storedValue);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
