@@ -38,7 +38,7 @@
     "format": "prettier --write 'src/**/*.{json,ts,tsx}'",
     "lint": "eslint ./src --ext js --ext ts --ext tsx --fix",
     "prepare": "npm run build",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "husky": {
     "hooks": {
