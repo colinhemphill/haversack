@@ -1,5 +1,16 @@
 on: pull_request
-uses: ziishaned/jest-reporter-action@v0.0.1
-with:
-  github-token: ${{ secrets.GITHUB_TOKEN }}
-  test-command: 'npm run test'
+
+jobs:
+  test-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: npm i
+
+      - name: Comment with Test Coverage
+        uses: mattallty/jest-github-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
