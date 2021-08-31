@@ -5,6 +5,7 @@ import { useLocalStorage } from '../src/index';
 describe('useLocalStorage hook', () => {
   const key = 'testKey';
   const value = 'testValue';
+  const version = 1;
 
   beforeEach(() => {
     localStorage.clear();
@@ -22,7 +23,7 @@ describe('useLocalStorage hook', () => {
   });
 
   test('Should set the value to localStorage', () => {
-    const { result } = renderHook(() => useLocalStorage(key));
+    const { result } = renderHook(() => useLocalStorage(key, '', version));
 
     const ts = new Date();
     mockdate.set(ts);
@@ -34,6 +35,7 @@ describe('useLocalStorage hook', () => {
     const expectedStoredData = JSON.stringify({
       data: value,
       ts,
+      version,
     });
 
     expect(localStorage.setItem).toHaveBeenCalledWith(key, expectedStoredData);

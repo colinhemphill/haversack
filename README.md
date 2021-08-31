@@ -18,8 +18,10 @@ Easy save state management using browser `localStorage` or `sessionStorage` and 
 
 Install with NPM or Yarn:
 
-    npm install --save haversack
-    yarn add haversack
+```bash
+npm install --save haversack
+yarn add haversack
+```
 
 ## Usage With React
 
@@ -72,8 +74,9 @@ function MyComponent() {
 You can pass an optional default value to the hook. This value will be returned if `setValue` has not been called yet.
 
 ```jsx
+const defaultValue = 'bar';
+
 function MyComponent() {
-  const defaultValue = 'bar';
   const { value } = useLocalStorage('foo', defaultValue);
 
   return (
@@ -85,6 +88,28 @@ function MyComponent() {
 ```
 
 _See notes on SSR compatibility for the server-side behavior of the default value._
+
+## Versioning and Cache Busting
+
+You can pass an optional number to the hook to apply a specific version to your stored data. If the structure of your data changes, users who have stored data from the previous structure can experience issues when the incompatible data is applied to the new structure. Think of the `version` param as a schema version for the data.
+
+```jsx
+const schemaVersion = 2;
+
+function MyComponent() {
+  const { value } = useLocalStorage('foo', 'bar', schemaVersion);
+
+  return (
+    <div>
+      The stored value is {value} for version {schemaVersion}. If the user had
+      data stored with a different schema version, that old data will be
+      invalidated.
+    </div>
+  );
+}
+```
+
+There is no enforcement of standards on the version number—Haversack will do a simple `===` equality check to determine if the version number has changed. Any change in version number, forward or backward, will cause the stored data to be deleted to await new data with the current version number. If previous data was stored without a version number, the data will be invalidated when a version number is introduced.
 
 ## Reset the Stored Value
 
@@ -162,9 +187,9 @@ function MyComponent() {
 }
 ```
 
-## Storage event sync
+## Storage Event Sync
 
-Each time you implement a Haversack hook, an `onstorage` event handler is registered. Any instance of your component on alternate browser tabs will be notified that `localStorage` has changed, and update the `value` accordingly.
+Each time you implement a Haversack hook, a `storage` event handler is registered. Any instance of your component on alternate browser tabs will be notified that `localStorage` has changed, and update the `value` accordingly.
 
 ## Notes on Server-Side Rendering Compatibility
 
