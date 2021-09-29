@@ -8,7 +8,7 @@ describe('useSessionStorage hook', () => {
 
   beforeEach(() => {
     sessionStorage.clear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   afterEach(() => {
@@ -87,5 +87,63 @@ describe('useSessionStorage hook', () => {
     };
 
     expect(result.current.value).toEqual(expectedStoredState);
+  });
+
+  test('Should invalidate a previous version number', () => {
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 1,
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', 2));
+
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  test('Should invalidate a previous version string', () => {
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 'old',
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', 'new'));
+
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  test('Should not invalidate data with the same version number', () => {
+    const version = 1;
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version,
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', version));
+
+    expect(sessionStorage.removeItem).not.toHaveBeenCalled();
+  });
+
+  test('Should not invalidate data with the same version string', () => {
+    const version = 'abc';
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version,
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', version));
+
+    expect(sessionStorage.removeItem).not.toHaveBeenCalled();
   });
 });

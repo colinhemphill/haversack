@@ -4,7 +4,7 @@ type StorageKey = string;
 
 type StoredData = string | number | unknown[] | Record<string, unknown>;
 
-type Version = number;
+type Version = number | string;
 
 interface StorageStructure<T> {
   data?: T;
