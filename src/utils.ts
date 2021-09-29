@@ -17,12 +17,17 @@ export const safeGetStorageValue = <T>(
     if (value) {
       const { data, version, ts } = JSON.parse(value);
       const timestamp = new Date(ts);
-      const versionNumber =
-        typeof version !== 'undefined' ? Number(version) : undefined;
+      const parsedVersion =
+        typeof version !== 'undefined'
+          ? isNaN(Number(version))
+            ? version
+            : Number(version)
+          : undefined;
+
       parsedValue = {
         data,
         ts: timestamp,
-        version: versionNumber,
+        version: parsedVersion,
       };
     }
     return parsedValue ? parsedValue : {};

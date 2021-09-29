@@ -91,7 +91,7 @@ _See notes on SSR compatibility for the server-side behavior of the default valu
 
 ## Versioning and Cache Busting
 
-You can pass an optional number to the hook to apply a specific version to your stored data. If the structure of your data changes, users who have stored data from the previous structure can experience issues when the incompatible data is applied to the new structure. Think of the `version` param as a schema version for the data.
+You can pass an optional number or string to the hook to apply a specific version to your stored data. If the structure of your data changes, users who have stored data from the previous structure can experience issues when the incompatible data is applied to the new structure. Think of the `version` param as a schema version for the data.
 
 ```jsx
 const schemaVersion = 2;
@@ -109,7 +109,9 @@ function MyComponent() {
 }
 ```
 
-There is no enforcement of standards on the version number—Haversack will do a simple `===` equality check to determine if the version number has changed. Any change in version number, forward or backward, will cause the stored data to be deleted to await new data with the current version number. If previous data was stored without a version number, the data will be invalidated when a version number is introduced.
+There is no enforcement of standards on the version—Haversack will do a simple `===` equality check to determine if the version has changed. Any change in version number, forward or backward, will cause the stored data to be deleted to await new data with the current version number. If previous data was stored without a version number, the data will be invalidated when a version number is introduced.
+
+Using a string for the version is especially useful if you want to create a hash of a data set to dynamically determine whether or not to invalidate the cache.
 
 ## Reset the Stored Value
 

@@ -88,4 +88,34 @@ describe('useSessionStorage hook', () => {
 
     expect(result.current.value).toEqual(expectedStoredState);
   });
+
+  test('Should invalidate a previous version number', () => {
+    const ts = new Date();
+    mockdate.set(ts);
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 1,
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', 2));
+
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  test('Should invalidate a previous version string', () => {
+    const ts = new Date();
+    mockdate.set(ts);
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 'old',
+    });
+    sessionStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useSessionStorage(key, '', 'new'));
+
+    expect(sessionStorage.removeItem).toHaveBeenCalledWith(key);
+  });
 });

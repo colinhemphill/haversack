@@ -87,4 +87,34 @@ describe('useLocalStorage hook', () => {
 
     expect(result.current.value).toEqual(expectedStoredState);
   });
+
+  test('Should invalidate a previous version number', () => {
+    const ts = new Date();
+    mockdate.set(ts);
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 1,
+    });
+    localStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useLocalStorage(key, '', 2));
+
+    expect(localStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  test('Should invalidate a previous version string', () => {
+    const ts = new Date();
+    mockdate.set(ts);
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version: 'old',
+    });
+    localStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useLocalStorage(key, '', 'new'));
+
+    expect(localStorage.removeItem).toHaveBeenCalledWith(key);
+  });
 });
