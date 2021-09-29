@@ -5,11 +5,10 @@ import { useLocalStorage } from '../src/index';
 describe('useLocalStorage hook', () => {
   const key = 'testKey';
   const value = 'testValue';
-  const version = 1;
 
   beforeEach(() => {
     localStorage.clear();
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   afterEach(() => {
@@ -23,7 +22,7 @@ describe('useLocalStorage hook', () => {
   });
 
   test('Should set the value to localStorage', () => {
-    const { result } = renderHook(() => useLocalStorage(key, '', version));
+    const { result } = renderHook(() => useLocalStorage(key));
 
     const ts = new Date();
     mockdate.set(ts);
@@ -35,7 +34,6 @@ describe('useLocalStorage hook', () => {
     const expectedStoredData = JSON.stringify({
       data: value,
       ts,
-      version,
     });
 
     expect(localStorage.setItem).toHaveBeenCalledWith(key, expectedStoredData);
@@ -116,5 +114,35 @@ describe('useLocalStorage hook', () => {
     renderHook(() => useLocalStorage(key, '', 'new'));
 
     expect(localStorage.removeItem).toHaveBeenCalledWith(key);
+  });
+
+  test('Should not invalidate data with the same version number', () => {
+    const version = 1;
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version,
+    });
+    localStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useLocalStorage(key, '', version));
+
+    expect(localStorage.removeItem).not.toHaveBeenCalled();
+  });
+
+  test('Should not invalidate data with the same version string', () => {
+    const version = 'abc';
+    const ts = new Date();
+    const previousStoredData = JSON.stringify({
+      data: 'oldStoredData',
+      ts,
+      version,
+    });
+    localStorage.setItem(key, previousStoredData);
+
+    renderHook(() => useLocalStorage(key, '', version));
+
+    expect(localStorage.removeItem).not.toHaveBeenCalled();
   });
 });
