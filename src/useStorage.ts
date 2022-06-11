@@ -44,7 +44,7 @@ const useStorage = <T>(
     (state: Record<string, unknown>) => {
       const ts = new Date();
       const currentState = isObject(storedValue.data) ? storedValue.data : {};
-      const updatedState = Object.assign(currentState, state);
+      const updatedState = Object.assign({}, currentState, state);
       setStoredValue({
         data: updatedState as T,
         ts,
