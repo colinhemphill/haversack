@@ -3,7 +3,7 @@ name: CI
 on: pull_request
 
 jobs:
-  test-coverage:
+  main:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
