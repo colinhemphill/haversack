@@ -1,6 +1,6 @@
 export const isServerSide = (): boolean => typeof window === 'undefined';
 
-export const isObject = (obj: any): boolean => {
+export const isObject = (obj: unknown): boolean => {
   return !!obj && obj.constructor === Object;
 };
 

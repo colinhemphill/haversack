@@ -121,14 +121,12 @@ const useStorage = <T>(
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useLocalStorage = <T = StoredData>(
   key: StorageKey,
   initialValue?: T,
   version?: Version,
 ) => useStorage('localStorage', key, initialValue, version);
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useSessionStorage = <T = StoredData>(
   key: StorageKey,
   initialValue?: T,
