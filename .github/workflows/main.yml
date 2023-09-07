@@ -1,16 +1,20 @@
+name: CI
+
 on: pull_request
 
 jobs:
-  test-coverage:
+  main:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - run: npm i
-
-      - name: Comment with Test Coverage
+      - name: Install
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Test coverage
         uses: mattallty/jest-github-action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
