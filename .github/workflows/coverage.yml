@@ -5,11 +5,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - run: npm i
-
+      - name: Build
+        run: npm run build
       - name: Comment with Test Coverage
         uses: mattallty/jest-github-action@v1
         env:
