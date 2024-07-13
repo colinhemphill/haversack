@@ -59,7 +59,7 @@
     "jest-localstorage-mock": "2.4.26",
     "lint-staged": "14.0.1",
     "mockdate": "3.0.5",
-    "prettier": "3.0.3",
+    "prettier": "3.3.3",
     "react": "17.0.2",
     "react-test-renderer": "17.0.2",
     "ts-jest": "29.1.1",
